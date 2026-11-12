@@ -1,0 +1,433 @@
+{
+  "selected_learning_rate": 0.05,
+  "config": {
+    "seed": 5023,
+    "step_seconds": 5,
+    "episode_steps": 360,
+    "training_episodes": 2200,
+    "learning_rates": [
+      0.05,
+      0.15,
+      0.35
+    ],
+    "discount": 0.95,
+    "epsilon_start": 1.0,
+    "epsilon_end": 0.05,
+    "epsilon_decay_episodes": 1600,
+    "minimum_green_steps": 2,
+    "maximum_green_steps": 6,
+    "service_per_step": 5,
+    "switch_penalty": 2.0,
+    "validation_seeds": [
+      20001,
+      20002,
+      20003,
+      20004,
+      20005,
+      20006,
+      20007,
+      20008,
+      20009,
+      20010
+    ],
+    "test_seed_start": 30001,
+    "test_seed_count": 30
+  },
+  "validation": [
+    {
+      "learning_rate": 0.05,
+      "validation_mean_queue_vehicles": 9.557685185185186
+    },
+    {
+      "learning_rate": 0.15,
+      "validation_mean_queue_vehicles": 9.684166666666664
+    },
+    {
+      "learning_rate": 0.35,
+      "validation_mean_queue_vehicles": 11.29768518518518
+    }
+  ],
+  "training_seed_count": 1,
+  "training_seed_check": [
+    {
+      "scenario": "balanced",
+      "controller": "q_learning",
+      "training_seeds": 5,
+      "mean": 12.036944444444446,
+      "sd": 0.1141661973196317,
+      "min": 11.854444444444447,
+      "max": 12.148425925925926
+    },
+    {
+      "scenario": "balanced",
+      "controller": "q_learning_safe",
+      "training_seeds": 5,
+      "mean": 12.036944444444446,
+      "sd": 0.1141661973196317,
+      "min": 11.854444444444447,
+      "max": 12.148425925925926
+    },
+    {
+      "scenario": "directional",
+      "controller": "q_learning",
+      "training_seeds": 5,
+      "mean": 8.489888888888888,
+      "sd": 0.09296082795984142,
+      "min": 8.423425925925928,
+      "max": 8.620277777777778
+    },
+    {
+      "scenario": "directional",
+      "controller": "q_learning_safe",
+      "training_seeds": 5,
+      "mean": 8.489888888888888,
+      "sd": 0.09296082795984142,
+      "min": 8.423425925925928,
+      "max": 8.620277777777778
+    },
+    {
+      "scenario": "rush_change",
+      "controller": "q_learning",
+      "training_seeds": 5,
+      "mean": 9.152425925925927,
+      "sd": 0.27840077051987894,
+      "min": 8.952222222222224,
+      "max": 9.575185185185184
+    },
+    {
+      "scenario": "rush_change",
+      "controller": "q_learning_safe",
+      "training_seeds": 5,
+      "mean": 9.152425925925927,
+      "sd": 0.27840077051987894,
+      "min": 8.952222222222224,
+      "max": 9.575185185185184
+    },
+    {
+      "scenario": "sensor_fault",
+      "controller": "q_learning",
+      "training_seeds": 5,
+      "mean": 13.774148148148148,
+      "sd": 0.23375248397703205,
+      "min": 13.486759259259259,
+      "max": 14.052592592592594
+    },
+    {
+      "scenario": "sensor_fault",
+      "controller": "q_learning_safe",
+      "training_seeds": 5,
+      "mean": 13.091425925925927,
+      "sd": 0.11746688016427405,
+      "min": 12.920833333333336,
+      "max": 13.24712962962963
+    },
+    {
+      "scenario": "capacity_loss",
+      "controller": "q_learning",
+      "training_seeds": 5,
+      "mean": 48.84501851851852,
+      "sd": 0.5032074352671023,
+      "min": 48.27555555555556,
+      "max": 49.45518518518519
+    },
+    {
+      "scenario": "capacity_loss",
+      "controller": "q_learning_safe",
+      "training_seeds": 5,
+      "mean": 48.84501851851852,
+      "sd": 0.5032074352671023,
+      "min": 48.27555555555556,
+      "max": 49.45518518518519
+    }
+  ],
+  "experience_base_rows": 17123,
+  "switch_penalty_ablation": [
+    {
+      "switch_penalty": 2.0,
+      "scenario": "balanced",
+      "mean_queue_vehicles": 12.007314814814814,
+      "mean_switches": 73.76666666666667
+    },
+    {
+      "switch_penalty": 2.0,
+      "scenario": "directional",
+      "mean_queue_vehicles": 8.42425925925926,
+      "mean_switches": 72.23333333333333
+    },
+    {
+      "switch_penalty": 2.0,
+      "scenario": "rush_change",
+      "mean_queue_vehicles": 8.975185185185186,
+      "mean_switches": 72.0
+    },
+    {
+      "switch_penalty": 2.0,
+      "scenario": "sensor_fault",
+      "mean_queue_vehicles": 13.972592592592592,
+      "mean_switches": 70.8
+    },
+    {
+      "switch_penalty": 2.0,
+      "scenario": "capacity_loss",
+      "mean_queue_vehicles": 49.45518518518519,
+      "mean_switches": 71.76666666666667
+    },
+    {
+      "switch_penalty": 0.0,
+      "scenario": "balanced",
+      "mean_queue_vehicles": 12.047777777777778,
+      "mean_switches": 73.6
+    },
+    {
+      "switch_penalty": 0.0,
+      "scenario": "directional",
+      "mean_queue_vehicles": 8.44787037037037,
+      "mean_switches": 72.13333333333334
+    },
+    {
+      "switch_penalty": 0.0,
+      "scenario": "rush_change",
+      "mean_queue_vehicles": 9.017592592592592,
+      "mean_switches": 72.8
+    },
+    {
+      "switch_penalty": 0.0,
+      "scenario": "sensor_fault",
+      "mean_queue_vehicles": 14.281296296296297,
+      "mean_switches": 70.6
+    },
+    {
+      "switch_penalty": 0.0,
+      "scenario": "capacity_loss",
+      "mean_queue_vehicles": 49.321111111111115,
+      "mean_switches": 71.46666666666667
+    }
+  ],
+  "test_episodes_per_scenario_controller": 30,
+  "summary": [
+    {
+      "scenario": "balanced",
+      "controller": "fixed",
+      "mean_queue_vehicles": 14.619074074074074,
+      "std_queue_vehicles": 2.1200941584778006,
+      "mean_queue_exposure_seconds_per_arrival": 20.20463490671943,
+      "mean_served_vehicles": 1281.4,
+      "paired_difference_vs_fixed": 0.0,
+      "paired_95_low": 0.0,
+      "paired_95_high": 0.0
+    },
+    {
+      "scenario": "balanced",
+      "controller": "greedy",
+      "mean_queue_vehicles": 21.15953703703703,
+      "std_queue_vehicles": 7.336602577445591,
+      "mean_queue_exposure_seconds_per_arrival": 29.098887005359018,
+      "mean_served_vehicles": 1273.0,
+      "paired_difference_vs_fixed": 6.5404629629629625,
+      "paired_95_low": 4.45970010274098,
+      "paired_95_high": 8.621225823184945
+    },
+    {
+      "scenario": "balanced",
+      "controller": "q_learning",
+      "mean_queue_vehicles": 12.007314814814814,
+      "std_queue_vehicles": 1.1363843790113781,
+      "mean_queue_exposure_seconds_per_arrival": 16.612836390499726,
+      "mean_served_vehicles": 1287.1333333333334,
+      "paired_difference_vs_fixed": -2.6117592592592587,
+      "paired_95_low": -3.1048148004801557,
+      "paired_95_high": -2.1187037180383617
+    },
+    {
+      "scenario": "balanced",
+      "controller": "q_learning_safe",
+      "mean_queue_vehicles": 12.007314814814814,
+      "std_queue_vehicles": 1.1363843790113781,
+      "mean_queue_exposure_seconds_per_arrival": 16.612836390499726,
+      "mean_served_vehicles": 1287.1333333333334,
+      "paired_difference_vs_fixed": -2.6117592592592587,
+      "paired_95_low": -3.1048148004801557,
+      "paired_95_high": -2.1187037180383617
+    },
+    {
+      "scenario": "directional",
+      "controller": "fixed",
+      "mean_queue_vehicles": 94.17259259259258,
+      "std_queue_vehicles": 18.931960931371254,
+      "mean_queue_exposure_seconds_per_arrival": 142.0358980572337,
+      "mean_served_vehicles": 999.4,
+      "paired_difference_vs_fixed": 0.0,
+      "paired_95_low": 0.0,
+      "paired_95_high": 0.0
+    },
+    {
+      "scenario": "directional",
+      "controller": "greedy",
+      "mean_queue_vehicles": 8.759166666666665,
+      "std_queue_vehicles": 0.9679325589612728,
+      "mean_queue_exposure_seconds_per_arrival": 13.239676467303708,
+      "mean_served_vehicles": 1179.5666666666666,
+      "paired_difference_vs_fixed": -85.41342592592592,
+      "paired_95_low": -91.91806330167876,
+      "paired_95_high": -78.90878855017309
+    },
+    {
+      "scenario": "directional",
+      "controller": "q_learning",
+      "mean_queue_vehicles": 8.42425925925926,
+      "std_queue_vehicles": 0.8931453207221726,
+      "mean_queue_exposure_seconds_per_arrival": 12.735110590298262,
+      "mean_served_vehicles": 1180.1333333333334,
+      "paired_difference_vs_fixed": -85.74833333333335,
+      "paired_95_low": -92.32979054573055,
+      "paired_95_high": -79.16687612093615
+    },
+    {
+      "scenario": "directional",
+      "controller": "q_learning_safe",
+      "mean_queue_vehicles": 8.42425925925926,
+      "std_queue_vehicles": 0.8931453207221726,
+      "mean_queue_exposure_seconds_per_arrival": 12.735110590298262,
+      "mean_served_vehicles": 1180.1333333333334,
+      "paired_difference_vs_fixed": -85.74833333333335,
+      "paired_95_low": -92.32979054573055,
+      "paired_95_high": -79.16687612093615
+    },
+    {
+      "scenario": "rush_change",
+      "controller": "fixed",
+      "mean_queue_vehicles": 61.0424074074074,
+      "std_queue_vehicles": 12.317566181665308,
+      "mean_queue_exposure_seconds_per_arrival": 92.10914230692116,
+      "mean_served_vehicles": 1089.8666666666666,
+      "paired_difference_vs_fixed": 0.0,
+      "paired_95_low": 0.0,
+      "paired_95_high": 0.0
+    },
+    {
+      "scenario": "rush_change",
+      "controller": "greedy",
+      "mean_queue_vehicles": 8.788888888888888,
+      "std_queue_vehicles": 0.9360021026381509,
+      "mean_queue_exposure_seconds_per_arrival": 13.292126131506803,
+      "mean_served_vehicles": 1179.1666666666667,
+      "paired_difference_vs_fixed": -52.25351851851853,
+      "paired_95_low": -56.42431236539961,
+      "paired_95_high": -48.08272467163746
+    },
+    {
+      "scenario": "rush_change",
+      "controller": "q_learning",
+      "mean_queue_vehicles": 8.975185185185186,
+      "std_queue_vehicles": 0.917772447329586,
+      "mean_queue_exposure_seconds_per_arrival": 13.575248103574998,
+      "mean_served_vehicles": 1178.3,
+      "paired_difference_vs_fixed": -52.06722222222221,
+      "paired_95_low": -56.2591637068429,
+      "paired_95_high": -47.87528073760153
+    },
+    {
+      "scenario": "rush_change",
+      "controller": "q_learning_safe",
+      "mean_queue_vehicles": 8.975185185185186,
+      "std_queue_vehicles": 0.917772447329586,
+      "mean_queue_exposure_seconds_per_arrival": 13.575248103574998,
+      "mean_served_vehicles": 1178.3,
+      "paired_difference_vs_fixed": -52.06722222222221,
+      "paired_95_low": -56.2591637068429,
+      "paired_95_high": -47.87528073760153
+    },
+    {
+      "scenario": "sensor_fault",
+      "controller": "fixed",
+      "mean_queue_vehicles": 59.12944444444445,
+      "std_queue_vehicles": 11.796355906167117,
+      "mean_queue_exposure_seconds_per_arrival": 89.24988979430515,
+      "mean_served_vehicles": 1091.7,
+      "paired_difference_vs_fixed": 0.0,
+      "paired_95_low": 0.0,
+      "paired_95_high": 0.0
+    },
+    {
+      "scenario": "sensor_fault",
+      "controller": "greedy",
+      "mean_queue_vehicles": 12.997592592592595,
+      "std_queue_vehicles": 2.1634929518070547,
+      "mean_queue_exposure_seconds_per_arrival": 19.636738383868927,
+      "mean_served_vehicles": 1174.3666666666666,
+      "paired_difference_vs_fixed": -46.13185185185185,
+      "paired_95_low": -49.78746773498584,
+      "paired_95_high": -42.47623596871786
+    },
+    {
+      "scenario": "sensor_fault",
+      "controller": "q_learning",
+      "mean_queue_vehicles": 13.972592592592592,
+      "std_queue_vehicles": 2.2001605718198918,
+      "mean_queue_exposure_seconds_per_arrival": 21.126929284884067,
+      "mean_served_vehicles": 1168.6,
+      "paired_difference_vs_fixed": -45.15685185185185,
+      "paired_95_low": -49.03054475849061,
+      "paired_95_high": -41.28315894521308
+    },
+    {
+      "scenario": "sensor_fault",
+      "controller": "q_learning_safe",
+      "mean_queue_vehicles": 13.097592592592596,
+      "std_queue_vehicles": 2.3805191448877188,
+      "mean_queue_exposure_seconds_per_arrival": 19.80082730569844,
+      "mean_served_vehicles": 1173.9333333333334,
+      "paired_difference_vs_fixed": -46.03185185185184,
+      "paired_95_low": -49.76784292014218,
+      "paired_95_high": -42.2958607835615
+    },
+    {
+      "scenario": "capacity_loss",
+      "controller": "fixed",
+      "mean_queue_vehicles": 114.09055555555555,
+      "std_queue_vehicles": 18.767750014666827,
+      "mean_queue_exposure_seconds_per_arrival": 172.29910728839928,
+      "mean_served_vehicles": 922.1333333333333,
+      "paired_difference_vs_fixed": 0.0,
+      "paired_95_low": 0.0,
+      "paired_95_high": 0.0
+    },
+    {
+      "scenario": "capacity_loss",
+      "controller": "greedy",
+      "mean_queue_vehicles": 49.9374074074074,
+      "std_queue_vehicles": 5.5720689793265485,
+      "mean_queue_exposure_seconds_per_arrival": 75.55004171878909,
+      "mean_served_vehicles": 1013.7666666666667,
+      "paired_difference_vs_fixed": -64.15314814814815,
+      "paired_95_low": -70.39645529464224,
+      "paired_95_high": -57.90984100165405
+    },
+    {
+      "scenario": "capacity_loss",
+      "controller": "q_learning",
+      "mean_queue_vehicles": 49.45518518518519,
+      "std_queue_vehicles": 5.687910920289677,
+      "mean_queue_exposure_seconds_per_arrival": 74.8336931004009,
+      "mean_served_vehicles": 1013.4333333333333,
+      "paired_difference_vs_fixed": -64.63537037037037,
+      "paired_95_low": -71.01831555573,
+      "paired_95_high": -58.25242518501074
+    },
+    {
+      "scenario": "capacity_loss",
+      "controller": "q_learning_safe",
+      "mean_queue_vehicles": 49.45518518518519,
+      "std_queue_vehicles": 5.687910920289677,
+      "mean_queue_exposure_seconds_per_arrival": 74.8336931004009,
+      "mean_served_vehicles": 1013.4333333333333,
+      "paired_difference_vs_fixed": -64.63537037037037,
+      "paired_95_low": -71.01831555573,
+      "paired_95_high": -58.25242518501074
+    }
+  ],
+  "elapsed_seconds": 221.47,
+  "source_sha256": "00108392779cdae6cb6c0aea14dfb1c5b5373c724b62e8cc9ae50879e285501d",
+  "numpy_version": "2.5.4",
+  "scope": "Synthetic queue simulation. Policy benchmarks exclude human approval gate. Demo adds that gate."
+}

@@ -1,0 +1,18 @@
+{
+  "seed": 5023,
+  "step_seconds": 5,
+  "episode_steps": 360,
+  "training_episodes": 2200,
+  "learning_rates": [0.05, 0.15, 0.35],
+  "discount": 0.95,
+  "epsilon_start": 1.0,
+  "epsilon_end": 0.05,
+  "epsilon_decay_episodes": 1600,
+  "minimum_green_steps": 2,
+  "maximum_green_steps": 6,
+  "service_per_step": 5,
+  "switch_penalty": 2.0,
+  "validation_seeds": [20001, 20002, 20003, 20004, 20005, 20006, 20007, 20008, 20009, 20010],
+  "test_seed_start": 30001,
+  "test_seed_count": 30
+}

@@ -1,0 +1,8 @@
+# Agent and tests
+numpy>=1.26,<3
+# Report figures (report_figures.py, report_flowchart.py, learning_demo.py --plot)
+matplotlib>=3.8
+scipy>=1.11
+# Optional result viewer (tensorboard_export.py)
+tensorboard>=2.15
+tensorboardX>=2.6
