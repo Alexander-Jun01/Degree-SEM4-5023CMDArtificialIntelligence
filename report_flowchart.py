@@ -310,8 +310,111 @@ def operator_mockup():
     print("Saved", out)
 
 
+
+def _canvas(w, h):
+    fig = plt.figure(figsize=(w, h))
+    ax = fig.add_axes([0, 0, 1, 1])
+    ax.set_xlim(0, w)
+    ax.set_ylim(0, h)
+    ax.axis("off")
+    return fig, ax
+
+
+def _card(ax, x, yy, w, h, text, face, edge, size=8.2, bold=False):
+    ax.add_patch(Rectangle((x, yy), w, h, facecolor=face, edgecolor=edge, linewidth=1))
+    ax.text(x + 0.1, yy + h / 2, text, ha="left", va="center", fontsize=size, color=INK, linespacing=1.2,
+            fontweight="bold" if bold else "normal")
+
+
+def _save(fig, name):
+    out = OUT.parent / name
+    fig.savefig(out, dpi=300, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+    print("Saved", out)
+
+
+def uncertainty_map():
+    """Report figure: each source of uncertainty, its effect, the design response and what remains."""
+    rows = [
+        ("Noisy sensor\n(SD 4 cars)", "Queue order can reverse;\nwrong table row chosen",
+         "Coarse bins; Bayes filter weighs\nevidence; precedent check", "Noise itself is not\ndetected as a fault"),
+        ("Missing reading\n(20% in sensor test)", "No state, so no\nlearned action", "Fixed timing; Bayes predict-only;\ncounted as a fault (safe mode at 3)",
+         "Fixed timing is poor\nunder changing load"),
+        ("Incomplete environment\ndata", "No turns, pedestrians or\nneighbouring junctions", "Not handled: stated as a\nscope limit",
+         "Action may be unsuitable\nwhile the estimate is right"),
+        ("Human intervention", "Approval uncertain;\nfrequent requests", "Three review triggers; withheld\napproval gives the queue rule; logged",
+         "Automation bias and\nroutine approval"),
+        ("Failed command\n(10% in sensor test)", "Displayed phase differs\nfrom the request", "Acknowledged phase logged; local\nmin/max green still enforced; a fault",
+         "Agent loses control\nwhile commands fail"),
+    ]
+    heads = ["Uncertainty", "Effect on the agent", "Response in this design", "Remaining risk"]
+    xs, ws = [0.1, 2.35, 4.6, 7.55], [2.1, 2.1, 2.8, 2.1]
+    styles = [("#f1f0ec", "#9b9a95"), (STEP, STEP_EDGE), (MEMORY, MEMORY_EDGE), (HUMAN, HUMAN_EDGE)]
+    fig, ax = _canvas(9.75, 4.6)
+    for x, w, h in zip(xs, ws, heads):
+        ax.text(x + 0.1, 4.35, h, fontsize=9, fontweight="bold", color=INK, va="center")
+    for r, row in enumerate(rows):
+        yy = 3.45 - r * 0.8
+        for c, (x, w, text) in enumerate(zip(xs, ws, row)):
+            _card(ax, x, yy, w, 0.66, text, *styles[c], bold=(c == 0))
+            if c < 3:
+                ax.add_patch(FancyArrowPatch((x + w, yy + 0.33), (xs[c + 1], yy + 0.33), arrowstyle="-|>",
+                                             mutation_scale=8, color=INK_2, linewidth=0.8, shrinkA=0, shrinkB=0))
+    _save(fig, "uncertainty_map.png")
+
+
+def signal_state_machine():
+    """Appendix figure: local interlocks of the simulated signal controller, as in Environment.step()."""
+    fig, ax = _canvas(9.0, 3.6)
+    def state(x, yy, text, face=STEP, edge=STEP_EDGE, w=2.3, h=0.85):
+        ax.add_patch(FancyBboxPatch((x - w / 2, yy - h / 2), w, h, boxstyle="round,pad=0,rounding_size=0.15",
+                                    facecolor=face, edgecolor=edge, linewidth=1.1))
+        ax.text(x, yy, text, ha="center", va="center", fontsize=8.2, color=INK, linespacing=1.2)
+    def edge(a, b, text, rad=0.0, off=(0, 0.12)):
+        ax.add_patch(FancyArrowPatch(a, b, arrowstyle="-|>", mutation_scale=10, color=INK, linewidth=0.9,
+                                     connectionstyle=f"arc3,rad={rad}", shrinkA=0, shrinkB=0))
+        ax.text((a[0] + b[0]) / 2 + off[0], (a[1] + b[1]) / 2 + off[1], text, ha="center", va="center",
+                fontsize=7.3, color=INK_2)
+    state(1.4, 2.6, "Green, age 0-1\n(minimum green:\nrequests ignored)")
+    state(4.5, 2.6, "Green, age 2-5\n(switch allowed\non request)")
+    state(7.6, 2.6, "Green, age 6\n(maximum green:\nswitch forced)", HUMAN, HUMAN_EDGE)
+    state(4.5, 0.75, "Clearance step\n(all-red, no discharge;\nother phase becomes green)", MEMORY, MEMORY_EDGE, w=3.0)
+    edge((2.55, 2.6), (3.35, 2.6), "serve, age + 1")
+    edge((5.65, 2.6), (6.45, 2.6), "serve, age + 1")
+    edge((4.5, 2.17), (4.5, 1.18), "request switch\n(command accepted)", off=(0.75, 0))
+    edge((7.6, 2.17), (5.6, 1.0), "switch even if\ncommand failed", rad=-0.2, off=(0.85, -0.05))
+    edge((3.0, 0.75), (1.4, 2.17), "new phase,\nage 0", rad=-0.25, off=(0.55, -0.35))
+    ax.text(4.5, 3.4, "Command failed (10% in the sensor-fault test): request rejected, current phase kept, age + 1",
+            ha="center", fontsize=7.6, color=INK_2)
+    _save(fig, "signal_state_machine.png")
+
+
+def sqlite_schema():
+    """Appendix figure: tables in the two SQLite files written and read by the demo."""
+    fig, ax = _canvas(9.0, 2.45)
+    def table(x, top, title, cols, note):
+        w, rh = 2.75, 0.24
+        ax.add_patch(Rectangle((x, top - rh), w, rh, facecolor=MEMORY_EDGE, edgecolor=MEMORY_EDGE))
+        ax.text(x + 0.08, top - rh / 2, title, color="white", fontsize=8.4, fontweight="bold", va="center")
+        for i, c in enumerate(cols):
+            yy = top - rh * (i + 2)
+            ax.add_patch(Rectangle((x, yy), w, rh, facecolor="white", edgecolor="#c9d1d9", linewidth=0.8))
+            ax.text(x + 0.08, yy + rh / 2, c, fontsize=7.6, color=INK, va="center", family="monospace")
+        ax.text(x, top - rh * (len(cols) + 1) - 0.18, note, fontsize=7.2, color=INK_2, va="top", linespacing=1.2)
+    table(0.1, 2.35, "events (agent_memory.sqlite)", ["run_id   TEXT", "step     INTEGER", "payload  TEXT (JSON row)"],
+          "Written after every demo step:\nfull audit record of the decision.")
+    table(3.1, 2.35, "operator_decisions (agent_memory)", ["run_id    TEXT", "step      INTEGER", "decision  TEXT",
+          "reason    TEXT", "triggers  TEXT"], "Written for every review:\napproved or withheld, and why.")
+    table(6.1, 2.35, "experience (experience.sqlite)", ["ns, ew    INTEGER (queue bins)", "phase, age INTEGER",
+          "action    INTEGER", "queue_change_20s INTEGER", "scenario, seed"],
+          "17,123 validation events, read every\nstep; INDEX situation (ns, ew, phase, age).")
+    _save(fig, "sqlite_schema.png")
+
 if __name__ == "__main__":
     main()
     architecture()
     sequence()
     operator_mockup()
+    uncertainty_map()
+    signal_state_machine()
+    sqlite_schema()

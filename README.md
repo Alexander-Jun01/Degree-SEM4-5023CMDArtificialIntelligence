@@ -96,13 +96,21 @@ The export reads `results` and replaces `runs` each time. It does not retrain or
 | `results/summary.json` | Aggregated results, source checksum and runtime version |
 | `results/demo_trace.jsonl` | 36 decisions with observations, review outcomes and plant feedback |
 | `results/agent_memory.sqlite` | Persistent event history (`events`) and review outcomes with triggers and reason (`operator_decisions`) |
-| `report_figures.py` | Learning curve and paired Q-learning vs queue rule statistics |
-| `report_flowchart.py` | Architecture diagram (report Figure 1.1) and memory-update flowchart (report Figure 1.2) |
+| `report_figures.py` | Learning curve, paired Q-learning vs queue rule statistics, policy map, state visits, seed robustness, safe-mode, belief-timeline and demo-timeline charts |
+| `report_flowchart.py` | Architecture diagram (report Figure 1.1) and memory-update flowchart (report Figure 1.4); uncertainty map (Figure 1.2); signal state machine and SQLite schema (Appendix D) |
 | `results/architecture.png` | Agent architecture: policy, supervisor layer, memory and plant |
 | `results/learning_curve.png` | Training queue length for the three learning rates |
 | `results/qlearning_vs_queue_rule.csv` | Paired differences, 95% intervals, t-test, Holm and Wilcoxon p-values |
 | `results/qlearning_vs_queue_rule.png` | Chart of those paired differences |
 | `results/memory_flowchart.png` | Flowchart of one decision step and the memory updates |
+| `results/policy_map.png` | Learned policy: phase the saved Q-table requests for each pair of queue bins (report Figure 2.1) |
+| `results/sensor_fault_safe_mode.png` | Sensor-fault mean queue for the queue rule, Q-learning and the memory safe mode (report Figure 2.4) |
+| `results/training_seed_robustness.png` | Q-learning minus queue rule for five training seeds (report Figure 2.5) |
+| `results/state_visits.png` | Training visits per pair of queue bins (report Figure 2.6) |
+| `results/uncertainty_map.png` | Each source of uncertainty, its effect, the design response and the remaining risk (report Figure 1.2) |
+| `results/belief_timeline.png` | Observed queue and P(congestion) over the 36 demo steps (report Figure 1.3) |
+| `results/demo_timeline.png` | Who decided each demo step: learned action, review, safe mode or fixed timing (report Figure 2.7) |
+| `results/signal_state_machine.png`, `results/sqlite_schema.png` | Controller interlocks and SQLite tables (report Appendix D) |
 | `tensorboard_export.py` | Writes the saved results as TensorBoard logs |
 | `learning_demo.py` | Trains a new agent from an empty Q-table and shows it improving; `--plot` opens a live chart and policy map. Writes `data/learning_progress.csv` and `data/learning_snapshots.json`, never `results/` |
 | `runs/` | TensorBoard logs. Not in the repository: run `python tensorboard_export.py` to create it from `results/` |
